@@ -1,0 +1,37 @@
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    application: jenkins
+  name: edp-jenkins-deletion
+rules:
+  - apiGroups:
+      - '*'
+    attributeRestrictions: null
+    resources:
+      - cdpipelines
+      - codebasebranches
+      - codebases
+      - stages
+    verbs:
+      - delete
+      - get
+      - list
+  - apiGroups:
+      - '*'
+    attributeRestrictions: null
+    resources:
+      - groups
+      - pods
+      - pods/exec
+      - projects
+    verbs:
+      - '*'
+  - apiGroups:
+      - '*'
+    attributeRestrictions: null
+    resources:
+      - imagestreams
+    verbs:
+      - delete
+      - get
