@@ -70,7 +70,7 @@ class Database {
         return getEntries(projectName, "select name from cd_stage where cd_pipeline_id=\'$pipelineId\';")
     }
 
-    void removeCdStage(String projectName, String pipelineName, String stageName) {
+    void removeCdStage(String projectName, String pipelineName, String stageName, boolean isV2) {
         String pipelineId = getPipelineId(projectName, pipelineName)
         String stageId = invokeCommand(projectName, "select id from cd_stage where name=\'$stageName\' and cd_pipeline_id=\'$pipelineId\';")[2]
 
@@ -80,6 +80,13 @@ class Database {
                 "delete from stage_codebase_docker_stream where cd_stage_id =\'$stageId\';",
                 "delete from cd_stage where id =\'$stageId\';",
         ]
+
+        if (isV2) {
+            ArrayList apps = getCdPipelineApplications(projectName, pipelineName, true)
+            apps.each { app ->
+                databaseListCommand.add("delete from codebase_docker_stream where oc_image_stream_name =\'${pipelineName}-${stageName}-${app}-verified\';")
+            }
+        }
 
         script.println "Removing entries related to CD stage \"${stageName}\""
 

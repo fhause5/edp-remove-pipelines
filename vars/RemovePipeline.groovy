@@ -45,7 +45,7 @@ def call() {
         stage("Remove pipeline stages") {
             context.database.getCdStages(context.projectName, context.cdPipeline).each { stage ->
                 new OpenshiftResource(context.stageCR, "${context.cdPipeline}-${stage}", this).remove()
-                context.database.removeCdStage(context.projectName, context.cdPipeline, stage)
+                context.database.removeCdStage(context.projectName, context.cdPipeline, stage, params.RESOURCES_VERSION_2)
                 new OpenshiftProject("${context.projectName}-${context.cdPipeline}-${stage}", this).remove()
                 context.database.getCdPipelineApplications(context.projectName, context.cdPipeline, params.RESOURCES_VERSION_2).each { application ->
                     new OpenshiftResource("imagestream", "${context.cdPipeline}-${stage}-${application}-verified",

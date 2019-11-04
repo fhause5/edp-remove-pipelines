@@ -57,7 +57,7 @@ def call() {
             new OpenshiftResource(context.stageCR, "${context.cdPipeline}-${context.cdStage}", this).remove()
         }
         stage("Remove database entries") {
-            context.database.removeCdStage(context.projectName, context.cdPipeline, context.cdStage)
+            context.database.removeCdStage(context.projectName, context.cdPipeline, context.cdStage, params.RESOURCES_VERSION_2)
         }
         stage("Remove OpenShift project") {
             new OpenshiftProject("${context.projectName}-${context.cdPipeline}-${context.cdStage}", this).remove()
