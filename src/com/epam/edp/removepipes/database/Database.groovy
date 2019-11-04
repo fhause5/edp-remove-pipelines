@@ -209,6 +209,7 @@ class Database {
                     "update codebase_docker_stream set codebase_branch_id = null where codebase_branch_id = \'$branchId\';",
                     "update codebase_branch set output_codebase_docker_stream_id = null where id = \'$branchId\';",
                     "delete from codebase_branch where id = \'$branchId\';",
+                    "delete from codebase_docker_stream where codebase_id is null;",
             ]
         } else {
             databaseListCommand = [
