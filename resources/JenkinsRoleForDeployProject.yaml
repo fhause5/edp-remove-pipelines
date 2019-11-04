@@ -1,0 +1,15 @@
+apiVersion: authorization.openshift.io/v1
+kind: Role
+metadata:
+  labels:
+    application: jenkins
+  name: pods-exec
+rules:
+  - apiGroups:
+      - '*'
+    attributeRestrictions: null
+    resources:
+      - pods
+      - pods/exec
+    verbs:
+      - get

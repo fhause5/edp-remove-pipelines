@@ -1,5 +1,4 @@
 import com.epam.edp.removepipes.database.Database
-import com.epam.edp.removepipes.openshift.OpenshiftProject
 import com.epam.edp.removepipes.openshift.OpenshiftResource
 import com.epam.edp.removepipes.jenkins.JenkinsItem
 
@@ -58,9 +57,6 @@ def call() {
         }
         stage("Remove database entries") {
             context.database.removeCdStage(context.projectName, context.cdPipeline, context.cdStage, params.RESOURCES_VERSION_2)
-        }
-        stage("Remove OpenShift project") {
-            new OpenshiftProject("${context.projectName}-${context.cdPipeline}-${context.cdStage}", this).remove()
         }
         stage("Remove Jenkins deploy job") {
             new JenkinsItem("${context.cdPipeline}-cd-pipeline/${context.cdStage}", this).remove()

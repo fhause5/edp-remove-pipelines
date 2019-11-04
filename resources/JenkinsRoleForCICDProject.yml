@@ -1,9 +1,9 @@
 apiVersion: authorization.openshift.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   labels:
     application: jenkins
-  name: edp-jenkins-deletion
+  name: jenkins-remove-role
 rules:
   - apiGroups:
       - '*'
@@ -17,16 +17,6 @@ rules:
       - delete
       - get
       - list
-  - apiGroups:
-      - '*'
-    attributeRestrictions: null
-    resources:
-      - groups
-      - pods
-      - pods/exec
-      - projects
-    verbs:
-      - '*'
   - apiGroups:
       - '*'
     attributeRestrictions: null
