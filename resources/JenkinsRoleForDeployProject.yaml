@@ -13,3 +13,5 @@ rules:
       - pods/exec
     verbs:
       - get
+      - list
+      - create
