@@ -54,7 +54,7 @@ class Database {
         try {
             script.openshift.withCluster() {
                 script.openshift.withProject(deployProject) {
-                    result = script.openshift.exec(podName, "-it", "--", "psql -d edp-install-wizard-db -U admin -c \"" +
+                    result = script.openshift.exec(podName, "-it", "--", "psql -d edp-install-wizard-db -U admin-console-db edp-install-wizard-db -c \"" +
                             "set search_path = \'$projectName\'; $command\"").out.replaceAll(" ", "").split("\n")
                 }
             }
